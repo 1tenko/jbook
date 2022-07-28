@@ -1,9 +1,25 @@
+import { useState } from "react";
 import ReactDOM from "react-dom";
 
 const App = () => {
+  const [input, setInput] = useState("");
+  // output from ESBuild
+  const [code, setCode] = useState("");
+
+  const onClick = () => {
+    console.log(input);
+  };
+
   return (
     <div>
-      <h1>hi</h1>
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      ></textarea>
+      <div>
+        <button onClick={onClick}>Submit</button>
+      </div>
+      <pre>{code}</pre>
     </div>
   );
 };
