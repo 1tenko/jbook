@@ -1,12 +1,6 @@
 import * as esbuild from "esbuild-wasm";
-import axios from "axios";
-import localForage from "localforage";
 
-const fileCache = localForage.createInstance({
-  name: "filecache",
-});
-
-export const unpkgPathPlugin = (inputCode: string) => {
+export const unpkgPathPlugin = () => {
   return {
     name: "unpkg-path-plugin",
     // build represents the bundling process
@@ -36,39 +30,6 @@ export const unpkgPathPlugin = (inputCode: string) => {
       });
 
       // attempt to load up that file
-      build.onLoad({ filter: /.*/ }, async (args: any) => {
-        console.log("onLoad", args);
-
-        if (args.path === "index.js") {
-          return {
-            loader: "jsx",
-            contents: inputCode,
-          };
-        }
-
-        // check to see if we have already fetched this file
-        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
-          args.path
-        );
-
-        // if it is in the cache, return it immediately
-        if (cachedResult) {
-          return cachedResult;
-        }
-
-        const { data, request } = await axios.get(args.path);
-
-        const result: esbuild.OnLoadResult = {
-          loader: "jsx",
-          contents: data,
-          resolveDir: new URL("./", request.responseURL).pathname,
-        };
-
-        // store response in cache
-        await fileCache.setItem(args.patch, result);
-
-        return result;
-      });
     },
   };
 };
