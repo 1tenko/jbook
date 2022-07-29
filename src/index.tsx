@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import * as esbuild from "esbuild-wasm";
 import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 
@@ -57,4 +57,8 @@ const App = () => {
 
 export default App;
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("Failed to find the root element");
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(<App />);
