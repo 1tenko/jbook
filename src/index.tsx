@@ -1,21 +1,21 @@
-import { useEffect, useState, useRef } from "react";
-import ReactDOM from "react-dom/client";
-import * as esbuild from "esbuild-wasm";
-import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
-import { fetchPlugin } from "./plugins/fetch-plugin";
+import { useEffect, useState, useRef } from 'react';
+import ReactDOM from 'react-dom/client';
+import * as esbuild from 'esbuild-wasm';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { fetchPlugin } from './plugins/fetch-plugin';
 
 const App = () => {
   const ref = useRef<any>();
 
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   // output from ESBuild
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
 
   const startService = async () => {
     try {
       ref.current = await esbuild.initialize({
         worker: true,
-        wasmURL: "/esbuild.wasm",
+        wasmURL: 'https://unpkg.com/esbuild-wasm@0.14.51/esbuild.wasm',
       });
     } catch (error) {
       console.error(error);
@@ -29,13 +29,13 @@ const App = () => {
   const onClick = async () => {
     try {
       const res = await esbuild.build({
-        entryPoints: ["index.js"],
+        entryPoints: ['index.js'],
         bundle: true,
         write: false,
         plugins: [unpkgPathPlugin(), fetchPlugin(input)],
         define: {
-          "process.env.NODE_ENV": "'production'",
-          global: "window",
+          'process.env.NODE_ENV': "'production'",
+          global: 'window',
         },
       });
 
@@ -62,8 +62,8 @@ const App = () => {
 
 export default App;
 
-const rootElement = document.getElementById("root");
-if (!rootElement) throw new Error("Failed to find the root element");
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(<App />);
