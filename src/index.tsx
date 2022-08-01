@@ -41,16 +41,16 @@ const App = () => {
 
       // console.log(res);
       setCode(res.outputFiles[0].text);
-
-      try {
-        eval(res.outputFiles[0].text);
-      } catch (error) {
-        alert(error);
-      }
     } catch (error) {
       console.error(error);
     }
   };
+
+  const html = `
+    <script>
+    ${code}
+    </script>
+  `;
 
   return (
     <div>
@@ -62,7 +62,7 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
-      <iframe sandbox="" src="/test.html"></iframe>
+      <iframe title="codeOutput" sandbox="allow-scripts" srcDoc={html} />
     </div>
   );
 };
