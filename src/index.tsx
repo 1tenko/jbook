@@ -10,8 +10,6 @@ const App = () => {
   const iframe = useRef<any>();
 
   const [input, setInput] = useState('');
-  // output from ESBuild
-  const [code, setCode] = useState('');
 
   const startService = async () => {
     try {
@@ -80,7 +78,6 @@ const App = () => {
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <pre>{code}</pre>
       <iframe
         ref={iframe}
         title="codeOutput"
