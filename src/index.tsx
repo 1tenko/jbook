@@ -30,6 +30,8 @@ const App = () => {
 
   const onClick = async () => {
     try {
+      iframe.current.srcDoc = html;
+
       const result = await esbuild.build({
         entryPoints: ['index.js'],
         bundle: true,
