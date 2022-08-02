@@ -1,12 +1,19 @@
-import Editor from '@monaco-editor/react';
+import Editor, { OnMount } from '@monaco-editor/react';
+import { useRef } from 'react';
 
 interface CodeEditorProps {
   initialValue: string;
+  onChange(value: string): void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
+  const handleEditorChange = (value: any) => {
+    onChange(value);
+  };
+
   return (
     <Editor
+      onChange={handleEditorChange}
       value={initialValue}
       height="500px"
       theme="vs-dark"
