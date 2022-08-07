@@ -37,7 +37,23 @@ store.dispatch({
   },
 });
 
-const id = store.getState().cells.order[0];
+store.dispatch({
+  type: insertCellBefore,
+  payload: {
+    id: null,
+    type: 'code',
+  },
+});
 
-console.log(store.getState());
-console.log(id);
+store.dispatch({
+  type: insertCellBefore,
+  payload: {
+    id: null,
+    type: 'text',
+  },
+});
+
+// const id = store.getState().cells.order[0];
+
+// console.log(store.getState());
+// console.log(id);
