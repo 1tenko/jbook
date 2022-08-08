@@ -20,10 +20,10 @@ const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
         event.target &&
         ref.current.contains(event.target as Node)
       ) {
-        console.log('element clicked on is inside editor');
+        // console.log('element clicked on is inside editor');
         return;
       }
-      console.log('element clicked is not inside editor');
+      // console.log('element clicked is not inside editor');
 
       setEditing(false);
     };
@@ -37,19 +37,19 @@ const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
   if (editing) {
     return (
       <div className="text-editor card" ref={ref}>
-        <div className="card-content">
-          <MDEditor
-            value={cell.content}
-            onChange={(v) => updateCell({ id: cell.id, content: v || '' })}
-          />
-        </div>
+        <MDEditor
+          value={cell.content}
+          onChange={(v) => updateCell({ id: cell.id, content: v || '' })}
+        />
       </div>
     );
   }
 
   return (
-    <div onClick={() => setEditing(true)}>
-      <MDEditor.Markdown source={cell.content || 'Click to edit'} />
+    <div className="text-editor card" onClick={() => setEditing(true)}>
+      <div className="card-content">
+        <MDEditor.Markdown source={cell.content || 'Click to edit'} />
+      </div>
     </div>
   );
 };

@@ -64,7 +64,7 @@ export const cellsSlice = createSlice({
       state.order[targetIndex] = action.payload.id;
     },
 
-    insertCellBefore: (
+    insertCellAfter: (
       state,
       action: PayloadAction<{
         id: string | null;
@@ -84,9 +84,9 @@ export const cellsSlice = createSlice({
       );
 
       if (foundIndex < 0) {
-        state.order.push(cell.id);
+        state.order.unshift(cell.id);
       } else {
-        state.order.splice(foundIndex, 0, cell.id);
+        state.order.splice(foundIndex + 1, 0, cell.id);
       }
     },
   },
