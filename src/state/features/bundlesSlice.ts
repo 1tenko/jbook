@@ -1,13 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = true;
+interface BundlesState {
+  [key: string]: {
+    loading: boolean;
+    code: string;
+    err: string;
+  };
+}
+
+const initialState: BundlesState = {};
 
 export const bundlesSlice = createSlice({
   name: 'bundles',
   initialState,
 
   reducers: {
-    bundleStart: (state, action: PayloadAction<string>) => {},
+    bundleStart: (state, action: PayloadAction<{ cellId: string }>) => {
+      state[action.payload.cellId] = {
+        loading: true,
+        code: '',
+        err: '',
+      };
+    },
     bundleComplete: (
       state,
       action: PayloadAction<{
@@ -17,7 +31,13 @@ export const bundlesSlice = createSlice({
           err: string;
         };
       }>
-    ) => {},
+    ) => {
+      state[action.payload.cellId] = {
+        loading: false,
+        code: action.payload.bundle.code,
+        err: action.payload.bundle.err,
+      };
+    },
   },
 });
 
