@@ -3,12 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 // import thunk from 'redux-thunk';
 
 import cellsReducer from './features/cellsSlice';
-import {
-  updateCell,
-  deleteCell,
-  moveCell,
-  insertCellBefore,
-} from './features/cellsSlice';
+import { actionCreators } from './features/cellsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -22,7 +17,7 @@ export type AppDispatch = typeof store.dispatch;
 
 // testing
 store.dispatch({
-  type: insertCellBefore,
+  type: actionCreators.insertCellBefore,
   payload: {
     id: null,
     type: 'code',
@@ -30,7 +25,7 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: insertCellBefore,
+  type: actionCreators.insertCellBefore,
   payload: {
     id: null,
     type: 'text',
@@ -38,7 +33,7 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: insertCellBefore,
+  type: actionCreators.insertCellBefore,
   payload: {
     id: null,
     type: 'code',
@@ -46,7 +41,7 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: insertCellBefore,
+  type: actionCreators.insertCellBefore,
   payload: {
     id: null,
     type: 'text',
