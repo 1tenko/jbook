@@ -96,6 +96,6 @@ const randomId = () => {
   return Math.random().toString(36).substring(2, 7);
 };
 
-export const actionCreators = cellsSlice.actions;
+export const cellActionCreators = cellsSlice.actions;
 
 export default cellsSlice.reducer;

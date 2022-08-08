@@ -3,11 +3,13 @@ import { configureStore } from '@reduxjs/toolkit';
 // import thunk from 'redux-thunk';
 
 import cellsReducer from './features/cellsSlice';
-// import { actionCreators } from './features/cellsSlice';
+import bundlesReducer from './features/bundlesSlice';
+// import { cellActionCreators } from './features/cellsSlice';
 
 export const store = configureStore({
   reducer: {
     cells: cellsReducer,
+    bundles: bundlesReducer,
   },
 });
 
