@@ -6,10 +6,12 @@ let initialized: boolean = false;
 
 export const bundle = async (rawCode: string) => {
   if (!initialized) {
-    await esbuild.initialize({
-      worker: true,
-      wasmURL: 'https://unpkg.com/esbuild-wasm@0.14.51/esbuild.wasm',
-    });
+    try {
+      await esbuild.initialize({
+        worker: true,
+        wasmURL: 'https://unpkg.com/esbuild-wasm@0.14.51/esbuild.wasm',
+      });
+    } catch (err) {}
     initialized = true;
   }
 

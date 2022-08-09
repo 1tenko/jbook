@@ -1,11 +1,37 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  AnyAction,
+  createSlice,
+  Dispatch,
+  PayloadAction,
+} from '@reduxjs/toolkit';
+import { bundle } from '../../bundler';
+import { store } from '../store';
+
+export const createBundle = (cellId: string, input: string) => {
+  const thunk = async (dispatch: Dispatch<AnyAction>) => {
+    dispatch(bundleActionCreators.bundleStart({ cellId }));
+
+    const result = await bundle(input);
+
+    dispatch(
+      bundleActionCreators.bundleComplete({
+        cellId,
+        bundle: { code: result.code, err: result.err },
+      })
+    );
+  };
+  // @ts-ignore
+  store.dispatch(thunk);
+};
 
 interface BundlesState {
-  [key: string]: {
-    loading: boolean;
-    code: string;
-    err: string;
-  };
+  [key: string]:
+    | {
+        loading: boolean;
+        code: string;
+        err: string;
+      }
+    | undefined;
 }
 
 const initialState: BundlesState = {};
